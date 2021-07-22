@@ -1,19 +1,11 @@
-﻿@page "/"
-
-
-
-<h1>@Localizer["Hello, world"]!</h1>
-
-@Localizer["Welcome to your new app"].
-<h1>@lng("Hello, world")!</h1>
-
-@lng("Welcome to your new app").
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
-
-@lng("Privacy")
-@SharedLocalizer.GetLocalizedHtmlString("Privacy")
+﻿<h3>Select your language</h3>
+<select @onchange="ChangeCulture">
+    <option>Select culture</option>
+    <option value="en-CA">English</option>
+    <option value="fr-CA">Francais</option>
+    <option value="en-US">English</option>
+    <option value="fr-FR">Francais</option>
+</select>
 
 
 @code {
