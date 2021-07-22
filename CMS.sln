@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localization.SqlLocalizer",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvc", "Mvc\Mvc.csproj", "{C35BD0AB-5E6D-4D04-AA47-B2B17258E56C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{9EC96677-2223-48DF-9B5F-A566F9566224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources", "Resources\Resources.csproj", "{9EC96677-2223-48DF-9B5F-A566F9566224}"
 	ProjectSection(ProjectDependencies) = postProject
 		{76BAECC1-C0DB-4B4C-9DB0-1C889A737BC1} = {76BAECC1-C0DB-4B4C-9DB0-1C889A737BC1}
 	EndProjectSection

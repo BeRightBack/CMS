@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using Wasm.Extensions;
 
 namespace Wasm
 {
@@ -16,13 +15,20 @@ namespace Wasm
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-
+            
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddLocalization(options => {
-                options.ResourcesPath = "Resources";
-            });
+            builder.Services.AddLocalization();
+            //builder.Services.AddLocalization(options => {
+            //    options.ResourcesPath = "Resources";
+            //});
 
-            await builder.Build().RunAsync();
+            var host = builder.Build();
+            await host.SetDefaultCulture();
+            //await builder.Build().RunAsync();
+
+            await host.RunAsync();
         }
     }
 }
+
+
