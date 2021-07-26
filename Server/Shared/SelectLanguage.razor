@@ -1,11 +1,39 @@
-﻿<h3>Select your language</h3>
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Localization
+@using System.Collections.Generic;
+
+
+@inject HttpContextAccessor HttpContext
+
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    IRequestCultureFeature requestCulture = HttpContext.Context.Features.Get<IRequestCultureFeature>();
+
+    //var uri = new Uri(NavigationManager.Uri)
+    //.GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+
+    var cultureItems = LocOptions.Value.SupportedUICultures
+    .Select(e => new SelectListItem { Value = e.Name, Text = e.DisplayName })
+    .ToList();
+
+
+    //var returnUrl = uri;
+
+
+}
+
+<h3>@lng("Language")</h3>&nbsp;
 <select @onchange="ChangeCulture">
-    <option>Select culture</option>
-    <option value="en-CA">English</option>
-    <option value="fr-CA">Francais</option>
-    <option value="en-US">English</option>
-    <option value="fr-FR">Francais</option>
+    <option value="">Culture</option>
+    @foreach (var item in cultureItems)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
 </select>
+
 
 
 @code {
@@ -25,4 +53,4 @@
         var msg = @SharedLocalizer.GetLocalizedHtmlString(txt);
         return msg;
     }
-}  
+}

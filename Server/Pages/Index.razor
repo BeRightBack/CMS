@@ -17,16 +17,7 @@
 
 
 @code {
-    private void ChangeCulture(ChangeEventArgs e)
-    {
-        var culture = (string)e.Value;
-        var uri = new Uri(NavigationManager.Uri)
-            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
-            $"redirectUri={Uri.EscapeDataString(uri)}";
-
-        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-    }
+    
 
     string lng(string txt)
     {
