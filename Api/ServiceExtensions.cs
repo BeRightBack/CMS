@@ -18,7 +18,24 @@ namespace Api
     {
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            var builder = services.AddIdentityCore<ApiUser>(q => { q.User.RequireUniqueEmail = true; });
+            var builder = services.AddIdentityCore<ApiUser>(q => { 
+                
+                // Password settings
+                q.Password.RequireDigit = true;
+                q.Password.RequiredLength = 8;
+                q.Password.RequireNonAlphanumeric = true;
+                q.Password.RequireUppercase = true;
+                q.Password.RequireLowercase = true;
+                q.Password.RequiredUniqueChars = 6;
+
+                // Lockout settings
+                q.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                q.Lockout.MaxFailedAccessAttempts = 10;
+                q.Lockout.AllowedForNewUsers = true;
+
+                // User settings
+                q.User.RequireUniqueEmail = true;
+            });
 
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), services);
             builder.AddEntityFrameworkStores<CMSDbContext>().AddDefaultTokenProviders();

@@ -70,7 +70,7 @@ namespace Api.Controllers
             return CreatedAtRoute("GetHotel", new { id = hotel.Id }, hotel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -99,7 +99,7 @@ namespace Api.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
