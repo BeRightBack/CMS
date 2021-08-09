@@ -18,19 +18,19 @@ namespace Api.Configurations.Entities
                 {
                     Id = 1,
                     Name = "Indiana",
-                    Url = "http:frenzyzone.com.Indiana"
+                    Url = "http://frenzyzone.com.Indiana"
                 },
                 new Store
                 {
                     Id = 2,
                     Name = "AppleBee",
-                    Url = "http:frenzyzone.com.AppleBee"
+                    Url = "http://frenzyzone.com.AppleBee"
                 },
                 new Store
                 {
                     Id = 3,
                     Name = "TechnoHub",
-                    Url = "http:frenzyzone.com.TechnoHub"
+                    Url = "http://frenzyzone.com.TechnoHub"
                 }
                 );
         }

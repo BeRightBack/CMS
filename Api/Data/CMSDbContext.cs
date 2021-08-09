@@ -1,4 +1,5 @@
 ﻿using Api.Configurations.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Api.Data
 {
-    public class CMSDbContext : DbContext
+    public class CMSDbContext : IdentityDbContext<ApiUser>
     {
         public CMSDbContext(DbContextOptions options) : base(options)
         { }
@@ -20,7 +21,7 @@ namespace Api.Data
             builder.ApplyConfiguration(new HotelConfiguration());
             builder.ApplyConfiguration(new StoreConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
-            //builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Country> Countries {get; set;}

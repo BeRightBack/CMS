@@ -1,4 +1,5 @@
 ﻿using Api.Data;
+using Api.Models;
 using Api.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace API.Repository
 {
@@ -71,22 +73,22 @@ namespace API.Repository
             return await query.AsNoTracking().ToListAsync();
         }
 
-        //public async Task<IPagedList<T>> GetPagedList(RequestParams requestParams, List<string> includes = null)
-        //{
-        //    IQueryable<T> query = _db;
+        public async Task<IPagedList<T>> GetPagedList(RequestParams requestParams, List<string> includes = null)
+        {
+            IQueryable<T> query = _db;
 
 
-        //    if (includes != null)
-        //    {
-        //        foreach (var includePropery in includes)
-        //        {
-        //            query = query.Include(includePropery);
-        //        }
-        //    }
+            if (includes != null)
+            {
+                foreach (var includePropery in includes)
+                {
+                    query = query.Include(includePropery);
+                }
+            }
 
-        //    return await query.AsNoTracking()
-        //        .ToPagedListAsync(requestParams.PageNumber, requestParams.PageSize);
-        //}
+            return await query.AsNoTracking()
+                .ToPagedListAsync(requestParams.PageNumber, requestParams.PageSize);
+        }
 
         public async Task Insert(T entity)
         {

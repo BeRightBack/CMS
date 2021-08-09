@@ -1,5 +1,7 @@
 using Api.Configurations;
 using Api.Data;
+using Api.Repository;
+using Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +35,17 @@ namespace Api
             services.AddDbContext<CMSDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
                 );
-            
+
+            services.AddMemoryCache();
+
+            //services.ConfigureRateLimiting();
+            services.AddHttpContextAccessor();
+
+            //services.ConfigureHttpCacheHeaders();
+
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
 
             services.AddCors(o =>
             {
@@ -45,12 +57,27 @@ namespace Api
 
             services.AddAutoMapper(typeof(MapperInitializer));
 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthManager, AuthManager>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CMS-Api", Version = "v1" });
             });
 
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddRazorPages();
+            services.AddControllers(config => {
+                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+                {
+                    Duration = 120
+
+                });
+            }).AddNewtonsoftJson(op =>
+            op.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            //services.ConfigureVersioning();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,16 +93,24 @@ namespace Api
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
 
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseCors("AllowAll");
 
+            app.UseResponseCaching();
+            //app.UseHttpCacheHeaders();
+            //app.UseIpRateLimiting();
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
         }

@@ -17,7 +17,7 @@ namespace Api.Configurations.Entities
                  new Product
                  {
                      Id = 1,
-                     Name = "Down Town Resort and Spa",
+                     Name = "Maple Syrup",
                      ShortDescription = "short description",
                      FullDescription = "Full description",
                      Price = 100.00,
@@ -26,7 +26,7 @@ namespace Api.Configurations.Entities
                  new Product
                  {
                      Id = 2,
-                     Name = "Comfort Suites",
+                     Name = "Peanut Butter",
                      ShortDescription = "short description",
                      FullDescription = "Full description",
                      Price = 10.00,
@@ -35,7 +35,7 @@ namespace Api.Configurations.Entities
                  new Product
                  {
                      Id = 3,
-                     Name = "Grand Palldium",
+                     Name = "Honey",
                      ShortDescription = "short description",
                      FullDescription = "Full description",
                      Price = 1.00,
