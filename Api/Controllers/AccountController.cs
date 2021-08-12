@@ -70,6 +70,8 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] LoginUserDTO userDTO)
         {

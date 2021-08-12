@@ -2,6 +2,7 @@ using Api.Configurations;
 using Api.Data;
 using Api.Repository;
 using Api.Services;
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,11 +38,10 @@ namespace Api
                 );
 
             services.AddMemoryCache();
-
-            //services.ConfigureRateLimiting();
+            services.ConfigureRateLimiting();
             services.AddHttpContextAccessor();
 
-            //services.ConfigureHttpCacheHeaders();
+            services.ConfigureHttpCacheHeaders();
 
             services.AddAuthentication();
             services.ConfigureIdentity();
@@ -65,9 +65,10 @@ namespace Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CMS-Api", Version = "v1" });
             });
 
-            //services.AddControllers();
-            services.AddRazorPages();
-            services.AddControllers(config => {
+            
+
+            services.AddControllers(config =>
+            {
                 config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
                 {
                     Duration = 120
@@ -77,7 +78,7 @@ namespace Api
             op.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //services.ConfigureVersioning();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,8 +101,9 @@ namespace Api
             app.UseCors("AllowAll");
 
             app.UseResponseCaching();
-            //app.UseHttpCacheHeaders();
-            //app.UseIpRateLimiting();
+            app.UseHttpCacheHeaders();
+
+            app.UseIpRateLimiting();
 
             app.UseRouting();
 

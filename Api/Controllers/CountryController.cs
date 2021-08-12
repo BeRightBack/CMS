@@ -44,7 +44,6 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id:int}", Name = "GetCountry")]
-        [ResponseCache(CacheProfileName = "120SecondsDuration")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountry(int id)
