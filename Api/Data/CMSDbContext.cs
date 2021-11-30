@@ -22,6 +22,8 @@ namespace Api.Data
             builder.ApplyConfiguration(new StoreConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
         }
 
         public DbSet<Country> Countries {get; set;}

@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Api.Configurations.Entities
 {
@@ -15,14 +11,17 @@ namespace Api.Configurations.Entities
             builder.HasData(
                 new IdentityRole
                 {
+                    Id = "c6bb07ce-a39f-4ad0-b598-821b73034adc",
                     Name = "User",
                     NormalizedName = "USER"
                 },
                 new IdentityRole
                 {
+                    Id = "95194e5b-433f-42d4-8d41-74746f7f334b",
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
                 }
+                   
             );
         }
     }

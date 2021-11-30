@@ -30,7 +30,7 @@ namespace Api
             }
             catch (Exception ex)
             {
-                Log.Fatal("Application failed to Start");
+                Log.Fatal(ex,"Application failed to Start");
             }
             finally
             {

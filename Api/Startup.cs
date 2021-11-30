@@ -6,6 +6,7 @@ using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,8 @@ namespace Api
             services.AddDbContext<CMSDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
                 );
+            services.AddIdentity<ApiUser, IdentityRole>()
+               .AddEntityFrameworkStores<CMSDbContext>();
 
             services.AddMemoryCache();
             services.ConfigureRateLimiting();
@@ -114,6 +117,12 @@ namespace Api
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                //endpoints.MapControllerRoute(
+                //    name: "areas",
+                //    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
